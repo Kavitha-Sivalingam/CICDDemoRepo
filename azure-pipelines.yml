@@ -40,9 +40,13 @@ steps:
     publishLocation: 'Container'
     
 
-- task: AzureWebApp@1
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy to Azure App Service'
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'CICDConnection'
     appType: 'webApp'
-    appName: 'CICDDemoPrj'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    WebAppName: 'CICDDemoPrj'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'webDeploy'
